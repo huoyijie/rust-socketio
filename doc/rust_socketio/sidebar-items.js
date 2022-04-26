@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Socket","Adds a layer of abstraction over Transport to provide secure and frame-based data transfer."],["SocketIO","Adds a layer of abstraction over Udpack to provide secure and frame-based data transfer."]]});

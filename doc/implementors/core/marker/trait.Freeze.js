@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["rust_socketio"] = [{"text":"impl Freeze for <a class=\"struct\" href=\"rust_socketio/struct.Socket.html\" title=\"struct rust_socketio::Socket\">Socket</a>","synthetic":true,"types":["rust_socketio::socket::Socket"]},{"text":"impl Freeze for <a class=\"struct\" href=\"rust_socketio/struct.SocketIO.html\" title=\"struct rust_socketio::SocketIO\">SocketIO</a>","synthetic":true,"types":["rust_socketio::socketio::SocketIO"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
