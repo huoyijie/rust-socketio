@@ -2,6 +2,10 @@
 name = "rust-socketio"
 version = "0.1.0"
 edition = "2021"
+authors = ["huoyijie <yijie.huo@foxmail.com>"]
+repository = "https://github.com/huoyijie/rust-socketio"
+license-file = "LICENSE"
+keywords = ["socketio", "socket", "udpack", "udp", "rust"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
