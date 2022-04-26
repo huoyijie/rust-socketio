@@ -1,5 +1,4 @@
-use crate::socket::Builder;
-use crate::Socket;
+use crate::{socket::Builder, Socket};
 use rust_udpack::Udpack;
 use std::io;
 use tokio::net::ToSocketAddrs;

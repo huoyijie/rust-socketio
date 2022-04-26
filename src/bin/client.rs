@@ -1,8 +1,7 @@
 use bytes::Bytes;
 use rust_socketio::SocketIO;
 use std::io;
-use tokio::time;
-use tokio::time::Duration;
+use tokio::{time, time::Duration};
 
 const SECRET_KEY: &[u8; 32] = b"ade2ff15798d44959d2846974bbf0bb3";
 const SECRET_IV: &[u8; 16] = b"bd3c01bfb8c2edca";
