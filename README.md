@@ -5,7 +5,7 @@ Adds a layer of abstraction over Udpack to provide secure and frame-based data t
 
 ### server.rs
 
-```
+```rust
 use rust_socketio::SocketIO;
 use std::io;
 
@@ -49,7 +49,7 @@ async fn main() -> io::Result<()> {
 
 ### client.rs
 
-```
+```rust
 use bytes::Bytes;
 use rust_socketio::SocketIO;
 use std::io;
