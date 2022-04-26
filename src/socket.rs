@@ -4,6 +4,7 @@ use rust_udpack::Transport;
 use std::io;
 use tokio_util::codec::{Decoder, Encoder, LengthDelimitedCodec};
 
+/// Socket Builder
 pub struct Builder;
 impl Builder {
   pub fn new(transport: Transport, secret_key: [u8; 32], secret_iv: [u8; 16]) -> Socket {
@@ -13,21 +14,39 @@ impl Builder {
 
 /// Adds a layer of abstraction over Transport to provide secure and frame-based data transfer.
 pub struct Socket {
+  /// transport instance
   transport: Transport,
+
+  /// secret key for aes-256-cbc
   secret_key: [u8; 32],
+
+  /// secret iv for aes-256-cbc
   secret_iv: [u8; 16],
+
+  /// read buffer
   rd_buf: BytesMut,
+
+  /// frame decoder
   decoder: LengthDelimitedCodec,
+
+  /// write buffer
   wr_buf: BytesMut,
+
+  /// frame encoder
   encoder: LengthDelimitedCodec,
+
+  /// cipher (aes_256_cbc) for encrypt and decrypt
   cipher: Cipher,
 }
 
 impl Socket {
+  /// uuid of the socket instance
   pub fn uuid(&self) -> u64 {
     self.transport.uuid()
   }
 
+  /// Decode and decrypt bytes from the received frame,
+  /// and will be blocked if there is no frame.
   pub async fn read(&mut self) -> io::Result<Option<Bytes>> {
     loop {
       if let Some(bytes_mut) = self.decoder.decode(&mut self.rd_buf)? {
@@ -57,10 +76,12 @@ impl Socket {
     }
   }
 
+  /// Whether the socket is writable or not.
   pub async fn writable(&self) -> io::Result<bool> {
     self.transport.writable().await
   }
 
+  /// Write and encrypt bytes to one frame, and send the frame out.
   pub async fn write(&mut self, bytes: Bytes) -> io::Result<()> {
     if let Ok(cipher_bytes) = encrypt(self.cipher, &self.secret_key, Some(&self.secret_iv), &bytes)
     {
@@ -77,18 +98,22 @@ impl Socket {
     }
   }
 
+  /// send a ping and expected a pong
   pub fn ping(&self) -> io::Result<()> {
     self.transport.ping()
   }
 
+  /// shutdown the socket
   pub fn shutdown(&self) -> io::Result<()> {
     self.transport.shutdown()
   }
 
+  /// drain the socket
   pub fn close(&self) -> io::Result<()> {
     self.transport.close()
   }
 
+  /// construct a socket instance
   fn new(transport: Transport, secret_key: [u8; 32], secret_iv: [u8; 16]) -> Self {
     Self {
       transport,
