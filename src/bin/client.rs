@@ -23,7 +23,7 @@ async fn main() -> io::Result<()> {
         }
       }
       _ = interval.tick() => {
-        socket.write(Bytes::copy_from_slice(&[1u8; 2048])).await?;
+        socket.write(Bytes::from("Hello, world!")).await?;
       }
       _ = tokio::signal::ctrl_c() => {
         println!("ctrl-c received!");
